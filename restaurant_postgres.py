@@ -17,6 +17,7 @@ import requests
 import psycopg2
 import os
 from urllib import parse
+import logging
 
 app = Flask(__name__)
 
@@ -27,7 +28,7 @@ APPLICATION_NAME = "Restaurant Menu Application"
 
 
 PG_URL = parse.urlparse(os.environ["DATABASE_URL"])
-console.log(PG_URL);
+logging.warning("Postgres DATABASE_URL : "+PG_URL)
 PG_USER = os.environ.get(PG_URL.username)
 PG_PASSWD = os.environ.get(PG_URL.password)
 PG_HOST = os.environ.get(PG_URL.hostname)
