@@ -21,6 +21,10 @@ import logging
 
 app = Flask(__name__)
 
+CLIENT_ID = json.loads(
+    open('client_secrets.json', 'r').read())['web']['client_id']
+APPLICATION_NAME = "Restaurant Menu Application"
+
 PG_URL = parse.urlparse(os.environ["DATABASE_URL"])
 PG_DATABASE = PG_URL.path[1:]
 PG_USER = PG_URL.username
