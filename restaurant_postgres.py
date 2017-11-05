@@ -19,8 +19,15 @@ import os
 from urllib import parse
 import logging
 
+def _force_https(app):
+    def wrapper(environ, start_response):
+        environ['wsgi.url_scheme'] = 'https'
+        return app(environ, start_response)
+    return wrapper
+
 app = Flask(__name__)
 
+app = _force_https(app)
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
