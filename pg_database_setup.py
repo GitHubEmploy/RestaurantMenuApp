@@ -11,7 +11,7 @@ PG_URL = parse.urlparse(os.environ["DATABASE_URL"])
 PG_USER = PG_URL.username
 PG_PASSWD = PG_URL.password
 PG_HOST = PG_URL.hostname
-PG_PORT = PG_URL.port
+PG_PORT = str(PG_URL.port)
 PG_CONN = 'postgresql+psycopg2://'+PG_USER+':'+PG_PASSWD+'@'+PG_HOST+':'+PG_PORT+'/restaurant-menu-udacity'
 
 Base = declarative_base()
