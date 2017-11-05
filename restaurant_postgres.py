@@ -15,6 +15,8 @@ import json
 from flask import make_response
 import requests
 import psycopg2
+import os
+from urllib import parse
 
 app = Flask(__name__)
 
@@ -24,8 +26,13 @@ CLIENT_ID = json.loads(
 APPLICATION_NAME = "Restaurant Menu Application"
 
 
+PG_URL = parse.urlparse(os.environ["DATABASE_URL"])
+PG_USER = os.environ.get(PG_URL.username)
+PG_PASSWD = os.environ.get(PG_URL.password)
+PG_CONN = 'postgresql+psycopg2://'+PG_USER+':'+PG_PASSWD+'@localhost/restaurant-menu-udacity'
+
 #Create a DB connection and connect to DB
-engine = create_engine('postgresql+psycopg2://postgres:12345@localhost/restaurantmenu_withusers')
+engine = create_engine(PG_CONN)
 #engine = create_engine('sqlite:///restaurantmenuwithusers.db')
 
 Base.metadata.bind = engine
@@ -498,4 +505,5 @@ def getUserID(email):
 if __name__ == '__main__':
 	app.secret_key = 'Super-Secret-Key'
 	app.debug=True
-#	app.run(host='0.0.0.0',port=8000)
+    PORT = os.environ.get('PORT')
+	app.run(host='0.0.0.0',port=PORT)
