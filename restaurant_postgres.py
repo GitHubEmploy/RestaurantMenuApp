@@ -50,7 +50,8 @@ session = DBSession()
 @app.route('/login')
 def showLogin():
 	# Random string or rather salt 
-	state = ''.join(random.choice(string.letters) for x in range(32))
+	#state = ''.join(random.choice(string.letters) for x in xrange(32))   #--Python 2.x
+    state = ''.join(random.choice(string.ascii_letters) for x in range(32))    #--Python 3.x
 	login_session['state']=state
 	#return "the current state is %s" % login_session['state']
 	return render_template('login.html',STATE=state)
