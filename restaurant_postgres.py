@@ -101,17 +101,14 @@ def fbconnect():
         and replace the remaining quotes with nothing so that it can be used directly in the graph
         api calls
     '''
-    logging.warning('result : ')
-    logging.warning(result)
     token = result.decode().split(',')[0].split(':')[1].replace('"', '')
-    logging.warning("access_token: "+access_token)
-    logging.warning("token: "+ token)
+
     url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     # print("url sent for API access:%s"% url)
     # print("API JSON result: %s" % result)
-    data = json.loads(result)
+    data = json.loads(result.decode())
     login_session['provider'] = 'facebook'
     login_session['username'] = data["name"]
     login_session['email'] = data["email"]
@@ -124,7 +121,7 @@ def fbconnect():
     url = 'https://graph.facebook.com/v2.8/me/picture?access_token=%s&redirect=0&height=200&width=200' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
-    data = json.loads(result)
+    data = json.loads(result.decode())
 
     login_session['picture'] = data["data"]["url"]
 
@@ -165,10 +162,8 @@ def fbdisconnect():
     
     h = httplib2.Http()
     result = h.request(url, 'DELETE')
-    print(result)
-    print(result[0]['status']) 
 
-    if result[0]['status'] == '200':
+    if result.decode()[0]['status'] == '200':
         clearLoginSession()
         del login_session['facebook_id']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
@@ -467,14 +462,15 @@ def deleteMenuItem(restaurant_id,menu_id):
 def checkAccessToken():
     stored_access_token = login_session.get('access_token')
     if stored_access_token:
+        h = httplib2.Http()
         if login_session.get('gplus_id') is not None:
             url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=%s'
                    % stored_access_token)
+            result = json.loads(h.request(url, 'GET')[1])
         if login_session.get('facebook_id') is not None:
             url = ('https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' 
-                   % stored_access_token)                       
-        h = httplib2.Http()
-        result = json.loads(h.request(url, 'GET')[1])
+                   % stored_access_token)                               
+            result = json.loads(h.request(url, 'GET')[1].decode())
         if result.get('error') is not None:
             flash('Seesion expired- You are being logged out')
             if login_session.get('gplus_id'):
