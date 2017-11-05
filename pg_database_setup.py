@@ -4,6 +4,16 @@ from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
+import os
+from urllib import parse
+
+PG_URL = parse.urlparse(os.environ["DATABASE_URL"])
+console.log(PG_URL);
+PG_USER = os.environ.get(PG_URL.username)
+PG_PASSWD = os.environ.get(PG_URL.password)
+PG_HOST = os.environ.get(PG_URL.hostname)
+PG_PORT = os.environ.get(PG_URL.port) 
+PG_CONN = 'postgresql+psycopg2://'+PG_USER+':'+PG_PASSWD+'@'+PG_HOST+':'+PG_PORT+'/restaurant-menu-udacity'
 
 Base = declarative_base()
 
@@ -58,6 +68,6 @@ class MenuItem(Base):
         }
 
 # engine = create_engine('sqlite:///restaurantmenu.db')
-engine = create_engine('postgresql+psycopg2://postgres:12345@localhost/restaurantmenu_withusers')
+engine = create_engine(PG_CONN)
 
 Base.metadata.create_all(engine)
