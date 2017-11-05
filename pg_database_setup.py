@@ -8,7 +8,6 @@ import os
 from urllib import parse
 
 PG_URL = parse.urlparse(os.environ["DATABASE_URL"])
-console.log(PG_URL);
 PG_USER = os.environ.get(PG_URL.username)
 PG_PASSWD = os.environ.get(PG_URL.password)
 PG_HOST = os.environ.get(PG_URL.hostname)
