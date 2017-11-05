@@ -502,8 +502,8 @@ def getUserID(email):
 	except Exception as e:
 		return None
 
-if __name__ == '__main__':
-	app.secret_key = 'Super-Secret-Key'
-	app.debug=True
+if __name__ == '__main__':    
+    app.secret_key = 'Super-Secret-Key'
+    app.debug=True
     PORT = os.environ.get('PORT')
-	app.run(host='0.0.0.0',port=PORT)
+    app.run(host='0.0.0.0',port=PORT)
