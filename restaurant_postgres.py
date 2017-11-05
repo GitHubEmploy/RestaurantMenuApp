@@ -498,4 +498,4 @@ def getUserID(email):
 if __name__ == '__main__':
 	app.secret_key = 'Super-Secret-Key'
 	app.debug=True
-	app.run(host='0.0.0.0',port=8000)
+#	app.run(host='0.0.0.0',port=8000)
