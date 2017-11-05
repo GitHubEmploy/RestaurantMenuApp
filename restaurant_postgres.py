@@ -78,7 +78,7 @@ def fbconnect():
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    access_token = request.data
+    access_token = request.data.decode()
     print("access token received %s " % access_token)
 
 
