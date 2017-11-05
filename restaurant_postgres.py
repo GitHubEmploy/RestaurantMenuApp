@@ -163,8 +163,8 @@ def fbdisconnect():
     
     h = httplib2.Http()
     result = h.request(url, 'DELETE')
-
-    if result.decode()[0]['status'] == '200':
+    logging.warning('FB DELETE %s' % result[0])
+    if result[0]['status'] == '200':
         clearLoginSession()
         del login_session['facebook_id']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
