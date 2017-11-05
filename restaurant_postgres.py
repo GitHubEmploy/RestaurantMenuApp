@@ -34,8 +34,9 @@ PG_PASSWD = PG_URL.password
 PG_HOST = PG_URL.hostname
 PG_PORT = PG_URL.port
 PG_CONN = 'postgresql+psycopg2://'+PG_USER+':'+PG_PASSWD+'@'+PG_HOST+':'+str(PG_PORT)+'/'+PG_DATABASE
-
-logging.warning("Postgres DATABASE_URL : "+PG_CONN)
+logging.warning("Postgres DATABASE_URL : ")
+logging.warning(os.environ["DATABASE_URL"])
+logging.warning("Postgres Conn string : "+PG_CONN)
 
 #Create a DB connection and connect to DB
 engine = create_engine(PG_CONN)
@@ -100,8 +101,11 @@ def fbconnect():
         and replace the remaining quotes with nothing so that it can be used directly in the graph
         api calls
     '''
+    logging.warning('result : ')
+    logging.warning(result)
     token = result.decode().split(',')[0].split(':')[1].replace('"', '')
-
+    logging.warning("access_token: "+access_token)
+    logging.warning("token: "+ token)
     url = 'https://graph.facebook.com/v2.8/me?access_token=%s&fields=name,id,email' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
