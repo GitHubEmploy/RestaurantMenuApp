@@ -1,13 +1,21 @@
 {% extends "main.html" %}
 {% block content %}
-	<div class="main">		
-		<div class="header">
+	<div class="row main">		
+		<div class="row top-menu">
+			<div class="col-md-6 col-sm-6 col-xs-3 text-left">
+				<h2>Restaurant List</h2>
+			</div>					
 			{% include "header.html" %}
 		</div>
-		<a class="new" href="{{url_for('newRestaurant')}}">Create New Restaurant</a>
+		<div class="row link">
+			<div class="col-md-12 text-left">
+			<a href="{{url_for('newRestaurant')}}">Create New Restaurant</a>
+			</div>
+		</div>
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
-		<div class="restaurant">	
+		<div class="row flash-message">	
+			<div class="col-md-12">
 			<ul>
 				{% for message in messages %}
 				<li><p> {{ message }} </p></li>
@@ -15,15 +23,20 @@
 			</ul>
 			{% endif %}
 			{% endwith %}
-
-			{% for restaurant in restaurants %}
-			
-			<p><a class="rname" href="{{url_for('restaurantMenu',restaurant_id=restaurant.id)}}">{{restaurant.name}}</a></p>					
-
-			<a href="{{url_for('editRestaurant',restaurant_id=restaurant.id)}}">Edit</a>
-			<a href="{{url_for('deleteRestaurant',restaurant_id=restaurant.id)}}">Delete</a>
-			<br><br>
-			{% endfor %}
+			</div>
+		</div>	
+		{% for restaurant in restaurants %}
+		<div class="row restaurant">
+			<div class="col-md-12 rname">
+				<a href="{{url_for('restaurantMenu',restaurant_id=restaurant.id)}}">{{restaurant.name}}</a>
+			</div>
 		</div>
+		<div class="row update-link">
+			<div class="col-md-12">
+				<a href="{{url_for('editRestaurant',restaurant_id=restaurant.id)}}">Edit</a>
+				<a href="{{url_for('deleteRestaurant',restaurant_id=restaurant.id)}}">Delete</a>
+			</div>
+		</div>	
+		{% endfor %}
 	</div>
 {% endblock %}

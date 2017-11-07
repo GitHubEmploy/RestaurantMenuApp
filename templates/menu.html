@@ -1,17 +1,24 @@
-<html>
-<head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-	<div class="main">		
-		<div class="header">
-			<h1>{{restaurant.name}}</h1>
+{% extends "main.html" %}
+{% block content %}
+	<div class="row main">		
+		<div class="row top-menu">
+			<div class="col-md-6 col-sm-6 col-xs-3 text-left">
+				<h1>{{restaurant.name}}</h1>
+			</div>			
+			{% include "header.html" %}
 		</div>
-		<a class="new" href="{{url_for('newMenuItem',restaurant_id=restaurant.id)}}">Create New Menu</a>
-		<a class="back" href="{{url_for('restaurantList')}}">Back to Restaurant List</a>
-		{% with messages = get_flashed_messages() %}
-		{% if messages %}
-		<div class="menuitem">	
+		<div class="row link">
+			<div class="col-md-6 col-sm-6 col-xs-6 text-left">	
+			<a class="new" href="{{url_for('newMenuItem',restaurant_id=restaurant.id)}}">Create New Menu</a>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-6 text-right">
+			<a class="back" href="{{url_for('restaurantList')}}">Back to Restaurant List</a>
+			</div>
+		</div>		
+		<div class="row flash-message">	
+			<div class="col-md-12">		
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
 			<ul>
 				{% for message in messages %}
 				<li><p> {{ message }} </p></li>
@@ -19,20 +26,28 @@
 			</ul>
 			{% endif %}
 			{% endwith %}
-
-			{% for item in menuItems %}
-			
-			<p>{{item.name}} <span>{{item.price}}</span> </p>	
-				
-			<p>{{item.description}}</p>	
-
-			<a href="{{url_for('editMenuItem',restaurant_id=item.restaurant_id,menu_id=item.id)}}">Edit</a>
-			<!--<a href='{{restaurantURL}}{{item.id}}/edit'>Edit</a>-->
-			<a href="{{url_for('deleteMenuItem',restaurant_id=item.restaurant_id,menu_id=item.id)}}">Delete</a>
-		    <!--<a href='{{restaurantURL}}{{item.id}}/delete'>Delete</a>-->
-			<br><br>
-			{% endfor %}
+			</div>
+		</div>	
+		{% for item in menuItems %}
+		<div class="row menuitem">
+			<div class="col-md-8 col-sm-8 col-xs-9 text-left">
+				{{item.name}} 
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-3 text-right">
+				{{item.price}}
+			</div>
+		</div>	
+		<div class="row menuitem">
+			<div class="col-md-12 text-left">
+				{{item.description}}
+			</div>
+		</div>	
+		<div class="row update-link">
+			<div class="col-md-12">
+				<a href="{{url_for('editMenuItem',restaurant_id=item.restaurant_id,menu_id=item.id)}}">Edit</a>
+				<a href="{{url_for('deleteMenuItem',restaurant_id=item.restaurant_id,menu_id=item.id)}}">Delete</a>
+			</div>
 		</div>
+		{% endfor %}
 	</div>
-</body>
-</html>
+{% endblock %}

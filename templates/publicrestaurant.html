@@ -1,12 +1,16 @@
 {% extends "main.html" %}
 {% block content %}
-	<div class="main">		
-		<div class="header">
+	<div class="row main">		
+		<div class="row top-menu">
+			<div class="col-md-6 col-sm-6 col-xs-3 text-left">
+				<h2>Restaurant List</h2>
+			</div>					
 			{% include "header.html" %}
 		</div>
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
-		<div class="restaurant">	
+		<div class="row flash-message">	
+			<div class="col-md-12">
 			<ul>
 				{% for message in messages %}
 				<li><p> {{ message }} </p></li>
@@ -14,13 +18,14 @@
 			</ul>
 			{% endif %}
 			{% endwith %}
-
-			{% for restaurant in restaurants %}
-			
-			<p><a class="rname" href="{{url_for('restaurantMenu',restaurant_id=restaurant.id)}}">{{restaurant.name}}</a></p>					
-
-			<br><br>
-			{% endfor %}
+			</div>
+		</div>	
+		{% for restaurant in restaurants %}
+		<div class="row restaurant">
+			<div class="col-md-12 rname">
+				<a href="{{url_for('restaurantMenu',restaurant_id=restaurant.id)}}">{{restaurant.name}}</a>
+			</div>
 		</div>
+		{% endfor %}
 	</div>
 {% endblock %}
