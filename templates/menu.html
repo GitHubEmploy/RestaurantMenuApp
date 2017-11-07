@@ -20,19 +20,15 @@
 			<a class="back" href="{{url_for('restaurantList')}}">Back to Restaurant List</a>
 			</div>
 		</div>		
-		<div class="row flash-message">	
-			<div class="col-md-12">		
-			{% with messages = get_flashed_messages() %}
-			{% if messages %}
-			<ul>
-				{% for message in messages %}
-				<li><p> {{ message }} </p></li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-			{% endwith %}
-			</div>
-		</div>	
+		
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+
+		{% include "flashmessage.hrml" %}
+		
+		{% endif %}
+		{% endwith %}		
+
 		{% for item in menuItems %}
 		<div class="row menuitem">
 			<div class="col-md-8 col-sm-8 col-xs-9 text-left">

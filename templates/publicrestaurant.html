@@ -12,19 +12,15 @@
 			</div>					
 			{% include "header.html" %}
 		</div>
+		
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
-		<div class="row flash-message">	
-			<div class="col-md-12">
-			<ul>
-				{% for message in messages %}
-				<li><p> {{ message }} </p></li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-			{% endwith %}
-			</div>
-		</div>	
+
+		{% include "flashmessage.hrml" %}
+		
+		{% endif %}
+		{% endwith %}		
+
 		{% for restaurant in restaurants %}
 		<div class="row restaurant">
 			<div class="col-md-12 rname">
