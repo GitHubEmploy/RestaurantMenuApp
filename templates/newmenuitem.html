@@ -2,8 +2,7 @@
 <html>
 <head>
 	<title>Pandava-New Menu Item</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	{% include "staticlinks.html" %}
 </head>
 <body>
 	<div class="main">		
@@ -11,11 +10,30 @@
 			<h1>New Menu Item</h1>
 		</div>	
 	<form method="POST" action="{{url_for('newMenuItem',restaurant_id=restaurant_id)}}">
-		<p>
-		<label>Name:</label> <input type="text" name="newmenu"></input>
-		<label>Price:</label> <input type="text" name="price"></input>
-		<label>Description:</label> <input type="text" name="description"></input><br><br>
-		</p>
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<label>Name:</label> 
+			</div>	
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<input type="text" name="newmenu"></input>
+			</div>	
+		</div>	
+		<div class="row">	
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<label>Price:</label> 
+			</div>	
+			<div class="col-md-6 col-sm-6 col-xs-6">				
+				<input type="text" name="price"></input>
+			</div>	
+		</div>	
+		<div class="row">				
+			<div class="col-md-6 col-sm-6 col-xs-6">		
+				<label>Description:</label> 
+			</div>	
+			<div class="col-md-6 col-sm-6 col-xs-6">				
+				<textarea type="text" name="description"></textarea>
+			</div>
+		</div>
 		<input type="submit" value="Create"></input>
 		<a href="{{url_for('restaurantMenu',restaurant_id=restaurant_id)}}">Cancel</a>
 	</form>
