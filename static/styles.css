@@ -15,7 +15,7 @@
 		-webkit-border-radius: 3em;
 		-moz-border-radius: 3em;
 	}
-	label{
+	div.form-label{
 		color: #FFFFFF;
 		font-size: 1.5em;
 	}
@@ -31,7 +31,7 @@
 	{
 		color: #d4ea79;
 	}	
-	ul li p{
+	div ul li p{
 		font-size: 1em;
 		border-radius: 1em;
 		display: inline;
