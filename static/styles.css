@@ -9,8 +9,8 @@
 		font-size: 1.8em;
 	}	
 	img{
-		width: 3em; 
-		height: 3em;
+		width: 5em; 
+		height: 5em;
 		border-radius: 3em;
 		-webkit-border-radius: 3em;
 		-moz-border-radius: 3em;
@@ -23,8 +23,7 @@
     	width: 100%;
     	max-width: 100%;
 	}
-
-	h1,h2
+	h1,h2,p
 	{
 		color: #d4ea79;
 	}
@@ -52,5 +51,13 @@
 		background-color: #111111;
 		border-radius :1%;
 	}	
+	.link a,.update-link a{
+		text-decoration: none;
+		color: #FFFFFF;
+	    font-size: 1em;
+	    border-radius: 0.3em;
+	    padding: 0 0.3em 0 0.3em;
+	    background-color: #581611;
+	}		
 
 </style>
