@@ -466,6 +466,7 @@ def deleteMenuItem(restaurant_id,menu_id):
 # check also if access token is valid or expired, if expired then resrore the access token
 def checkAccessToken():
     stored_access_token = login_session.get('access_token')
+    result={}
     if stored_access_token:
         h = httplib2.Http()
         if login_session.get('gplus_id') is not None:
