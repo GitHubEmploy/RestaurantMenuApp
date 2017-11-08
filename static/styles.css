@@ -28,6 +28,14 @@
     	max-width: 100%;
     	margin: 0;
 	}
+	div.login {
+    	margin-top: 50%;
+	}
+	#fblogin button a {
+	    font-size: 1.2em;
+	    background-color: #e4e9f2;
+	    color: black;
+	}
 	h1,h2,p
 	{
 		color: #d4ea79;
