@@ -9,8 +9,8 @@
 		font-size: 1.8em;
 	}	
 	img{
-		width: 5em; 
-		height: 5em;
+		width: 4em; 
+		height: 4em;
 		border-radius: 3em;
 		-webkit-border-radius: 3em;
 		-moz-border-radius: 3em;
@@ -26,6 +26,7 @@
     	padding: 4%;
     	width: 100%;
     	max-width: 100%;
+    	margin: 0;
 	}
 	h1,h2,p
 	{

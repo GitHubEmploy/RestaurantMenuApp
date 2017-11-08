@@ -139,7 +139,7 @@ def fbconnect():
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
 
-    flash("Now logged in as %s" % login_session['username'])
+    flash("You are now logged in as %s" % login_session['username'])
     return output
 
 
@@ -267,7 +267,7 @@ def gconnect():
     output += '<img src="'
     output += login_session['picture']
     output += ' " style = "width: 160px; height: 160px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
-    flash("you are now logged in as %s" % login_session['username'])
+    flash("You are now logged in as %s" % login_session['username'])
     print("done!")
     return output
 
@@ -386,9 +386,13 @@ def deleteRestaurant(restaurant_id):
 	deletedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
 	if request.method == 'POST':		
 		if deletedRestaurant !=[]:
-			session.delete(deletedRestaurant)
-			session.commit()
-			flash('Restaurant "'+deletedRestaurant.name+'" deleted successfully')
+            try:
+    			session.delete(deletedRestaurant)
+    			session.commit()
+    			flash('Restaurant "'+deletedRestaurant.name+'" deleted successfully')
+            except:
+                session.rollback()
+                
 		return	redirect(url_for('restaurantList',restaurant_id=restaurant_id))
 
 	else:
