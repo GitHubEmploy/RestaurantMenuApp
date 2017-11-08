@@ -62,7 +62,7 @@ def showLogin():
 
 @app.route('/disconnect')
 def disconnect():
-    if 'provider' in login_session:
+    if ('provider' in login_session) and checkAccessToken():
         if login_session['provider'] == 'google':
             gdisconnect()
         if login_session['provider'] == 'facebook':
@@ -71,7 +71,8 @@ def disconnect():
         flash("You have successfully been logged out.")
         return redirect(url_for('restaurantList'))
     else:
-        flash("You were not logged in")
+        if not checkAccessToken():
+            flash("You were not logged in")
         return redirect(url_for('restaurantList'))
 
 # START FACEBOOK SIGN IN 
@@ -121,7 +122,7 @@ def fbconnect():
     # The token must be stored in the login_session in order to properly logout
     login_session['access_token'] = token
 
-    # Get user picture
+   # Get user picture
     url = 'https://graph.facebook.com/v2.8/me/picture?access_token=%s&redirect=0&height=200&width=200' % token
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
@@ -170,15 +171,12 @@ def fbdisconnect():
     if result[0]['status'] == '200':
         clearLoginSession()
         del login_session['facebook_id']
-        response = make_response(json.dumps('Successfully disconnected.'), 200)
-        response.headers['Content-Type'] = 'application/json'
-        return response
     else:
-        response = make_response(json.dumps('Failed to revoke token for given user.', 400))
+        response = make_response(json.dumps('Failed to revoke token for given user.'), 400)
         response.headers['Content-Type'] = 'application/json'
         return response            
 
-    return "you have been logged out"
+    return "You have been logged out"
 
 # END FACEBOOK SIGN IN 
 @app.route('/gconnect', methods=['POST'])
