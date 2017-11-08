@@ -392,6 +392,7 @@ def deleteRestaurant(restaurant_id):
                 flash('Restaurant "'+deletedRestaurant.name+'" deleted successfully')
             except:
                 session.rollback()
+                flash('Restaurant was not deleted.\nDelete all menuitems before deleting restaurant')
         return	redirect(url_for('restaurantList',restaurant_id=restaurant_id))
     else:
         return render_template('deleterestaurant.html',restaurant_id=restaurant_id,deletedRestaurant=deletedRestaurant)
