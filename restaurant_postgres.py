@@ -62,17 +62,18 @@ def showLogin():
 
 @app.route('/disconnect')
 def disconnect():
-    if ('provider' in login_session) and checkAccessToken():
-        if login_session['provider'] == 'google':
-            gdisconnect()
-        if login_session['provider'] == 'facebook':
-            fbdisconnect()
-        del login_session['provider']
-        flash("You have successfully been logged out.")
+    isSessionValid = checkAccessToken()
+    if ('provider' in login_session):
+        if isSessionValid:
+            if login_session['provider'] == 'google':
+                gdisconnect()
+            if login_session['provider'] == 'facebook':
+                fbdisconnect()
+            del login_session['provider']
+            flash("You have successfully been logged out.")
         return redirect(url_for('restaurantList'))
     else:
-        if not checkAccessToken():
-            flash("You were not logged in")
+        flash("You were not logged in")
         return redirect(url_for('restaurantList'))
 
 # START FACEBOOK SIGN IN 
