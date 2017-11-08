@@ -19,7 +19,12 @@ import os
 from urllib import parse
 import logging
 
+from flask_sslify import SSLify
+
 app = Flask(__name__)
+
+sslify = SSLify(app)
+
 
 CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']

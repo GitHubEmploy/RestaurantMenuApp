@@ -14,10 +14,10 @@
 		</div>
 		<div class="row link">
 			<div class="col-md-6 col-sm-6 col-xs-6 text-left">	
-			<a class="new" href="{{url_for('newMenuItem',restaurant_id=restaurant.id)}}">Create New Menu</a>
+			<a href="{{url_for('newMenuItem',restaurant_id=restaurant.id)}}">Create New Menu</a>
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-6 text-right">
-			<a class="back" href="{{url_for('restaurantList')}}">Back to Restaurant List</a>
+			<a href="{{url_for('restaurantList')}}">Back to Restaurant List</a>
 			</div>
 		</div>		
 		
@@ -31,10 +31,10 @@
 
 		{% for item in menuItems %}
 		<div class="row menuitem">
-			<div class="col-md-8 col-sm-8 col-xs-9 text-left">
+			<div class="col-md-8 col-sm-8 col-xs-8 text-left">
 				{{item.name}} 
 			</div>
-			<div class="col-md-4 col-sm-4 col-xs-3 text-right">
+			<div class="col-md-4 col-sm-4 col-xs-4 text-right">
 				{{item.price}}
 			</div>
 		</div>	
