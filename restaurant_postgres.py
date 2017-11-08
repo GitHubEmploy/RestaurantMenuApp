@@ -381,22 +381,20 @@ def editRestaurant(restaurant_id):
 # Task 3: Create route for deleteRestaurant function here
 @app.route('/restaurant/<int:restaurant_id>/delete/',methods=['GET','POST'])		
 def deleteRestaurant(restaurant_id):	
-	if 'username' not in login_session:
-		return redirect('/login');	
-	deletedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-	if request.method == 'POST':		
-		if deletedRestaurant !=[]:
+    if 'username' not in login_session:
+    	return redirect('/login');	
+    deletedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if request.method == 'POST':		
+        if deletedRestaurant !=[]:
             try:
-    			session.delete(deletedRestaurant)
-    			session.commit()
-    			flash('Restaurant "'+deletedRestaurant.name+'" deleted successfully')
+                session.delete(deletedRestaurant)
+                session.commit()
+                flash('Restaurant "'+deletedRestaurant.name+'" deleted successfully')
             except:
                 session.rollback()
-                
-		return	redirect(url_for('restaurantList',restaurant_id=restaurant_id))
-
-	else:
-		return render_template('deleterestaurant.html',restaurant_id=restaurant_id,deletedRestaurant=deletedRestaurant)
+        return	redirect(url_for('restaurantList',restaurant_id=restaurant_id))
+    else:
+        return render_template('deleterestaurant.html',restaurant_id=restaurant_id,deletedRestaurant=deletedRestaurant)
 
 # Task 5: Create route for newMenuItem function here
 @app.route('/restaurant/<int:restaurant_id>/')
